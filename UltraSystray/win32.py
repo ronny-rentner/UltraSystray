@@ -207,10 +207,10 @@ class SystrayIcon():
         win32.PostQuitMessage(0)
 
     def on_left_click(self, *args):
-        print('left click')
+        print('left click', args)
 
     def on_middle_click(self, *args):
-        print('middle click')
+        print('middle click', args)
         self.quit()
 
     def on_right_click(self, *args):

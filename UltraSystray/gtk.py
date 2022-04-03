@@ -46,6 +46,10 @@ class SystrayIcon():
         self.show()
         Gtk.main()
 
+    def quit(self):
+        del self.status_icon
+        Gtk.main_quit()
+
     def on_click(self, status_icon=None, event_button=None, *args):
         if event_button and event_button.button == 2:
             self.on_middle_click()
@@ -55,6 +59,7 @@ class SystrayIcon():
 
     def on_middle_click(self, *args):
         print('middle click', args)
+        self.quit()
 
     def on_right_click(self, *args):
         print('right click', args)
@@ -81,7 +86,7 @@ class SystrayIcon():
             for item in items:
                 menu.append(self.create_menu_item(**item))
         else:
-            menu.append(self.create_menu_item('Quit', Gtk.main_quit))
+            menu.append(self.create_menu_item('Quit', self.quit))
         menu.show_all()
 
         return menu
@@ -103,5 +108,3 @@ class SystrayIcon():
 
         return menu_item
 
-    # For convenience
-    quit = Gtk.main_quit

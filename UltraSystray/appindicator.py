@@ -7,7 +7,6 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('AyatanaAppIndicator3', '0.1')
 gi.require_version('Notify', '0.7')
-gi.require_version("GdkX11", "3.0")
 
 from gi.repository import Gtk, GLib, GObject
 from gi.repository import AyatanaAppIndicator3 as AppIndicator
@@ -16,7 +15,7 @@ from gi.repository import Notify
 import pathlib
 import signal
 
-class Icon():
+class SystrayIcon():
     def __init__(self, unique_id=None, icon=None, title=None, menu_items=None, **kwargs):
         self.appindicator = None
 
