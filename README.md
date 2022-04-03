@@ -32,7 +32,7 @@ Advantages of ICO:
 AppIndicator Warning
 --------------------
 
-(AppIndicators)[https://wiki.ubuntu.com/DesktopExperienceTeam/ApplicationIndicators] were invented by Ubuntu to
+[AppIndicators](https://wiki.ubuntu.com/DesktopExperienceTeam/ApplicationIndicators) were invented by Ubuntu to
 create more consistency in your system tray.
 
 They tried to achieve this by removing a lot of basic, major functionality like the ability to do something on a
@@ -48,6 +48,6 @@ This restriction alone is so huge that AppIndicators are doomed to die sooner or
 Thus, the strong recommendation is *not to use AppIndicators*. This is not a sustainable standard for the future.
 
 What should be used instead? Use classical status icons. They are officially being removed from GTK>4, so there will be in the future
-an additional library on top of GTK for status icons, ie. (XApp.StatusIcon)[https://lazka.github.io/pgi-docs/XApp-1.0/classes/StatusIcon.html]
+an additional library on top of GTK for status icons, ie. [XApp.StatusIcon](https://lazka.github.io/pgi-docs/XApp-1.0/classes/StatusIcon.html)
 It is expected that this library will automatically be available on all major Linux desktops.
 
