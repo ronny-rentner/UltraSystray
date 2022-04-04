@@ -52,7 +52,7 @@ class SystrayIcon():
         #self._release_icon()
 
     def _show(self):
-        self._assert_icon_handle()
+        self.load_icon()
         self._message(
             win32.NIM_ADD,
             win32.NIF_MESSAGE | win32.NIF_ICON | win32.NIF_TIP,
@@ -65,7 +65,7 @@ class SystrayIcon():
 
     def _update_icon(self):
         self._release_icon()
-        self._assert_icon_handle()
+        self.load_icon()
         self._message(
             win32.NIM_MODIFY,
             win32.NIF_ICON,
@@ -390,7 +390,7 @@ class SystrayIcon():
             win32.DestroyIcon(self._icon_handle)
             self._icon_handle = None
 
-    def _assert_icon_handle(self):
+    def load_icon(self):
         """Asserts that the cached icon handle exists.
         """
         if self._icon_handle:
@@ -398,23 +398,30 @@ class SystrayIcon():
 
         print("load", str(self.icon), self._icon_handle)
 
-        #with serialized_image(self.icon, 'ICO') as icon_path:
+        if self.icon.suffix == '.ico':
+            try:
+                self._icon_handle = win32.LoadImage(None, str(self.icon), win32.IMAGE_ICON, 0, 0, win32.LR_DEFAULTSIZE | win32.LR_LOADFROMFILE)
+                return
+            except OSError as e:
+                pass
+
+        if self.icon.suffix == '.png':
+            try:
+                with open(self.icon, "rb") as f:
+                    png = f.read()
+                    self._icon_handle = win32.CreateIconFromResourceEx(png, len(png), 1, 0x30000, 0, 0, win32.LR_DEFAULTSIZE | win32.LR_DEFAULTCOLOR)
+                return
+            except Exception as e:
+                pass
+
+        # Cannot load icon file from file system
         try:
-            self._icon_handle = win32.LoadImage(
-                None,
-                str(self.icon),
-                win32.IMAGE_ICON,
-                0,
-                0,
-                win32.LR_DEFAULTSIZE | win32.LR_LOADFROMFILE)
-        except:
-            self._icon_handle = win32.LoadImage(
-                None,
-                str(self.icon),
-                win32.IMAGE_ICON,
-                0,
-                0,
-                win32.LR_DEFAULTSIZE | win32.LR_LOADFROMFILE)
+            self._icon_handle = win32.LoadIcon(0, win32.IDI_WARNING)
+            return
+        except OSError as e:
+            pass
+
+        raise OSError(f"Cannot load icon file '{self.icon}'")
 
 
     def _register_class(self):

@@ -126,6 +126,16 @@ COLOR_WINDOW = 5
 HWND_MESSAGE = -3
 IMAGE_ICON = 1
 
+IDI_APPLICATION = 32512
+IDI_ASTERISK    = 32516
+IDI_EXCLAMATION = 32515
+IDI_HAND        = 32513
+IDI_ERROR       = 32513
+IDI_QUESTION    = 32514
+IDI_WARNING     = 32515
+IDI_INFORMATION = 32516
+IDI_WINLOGO     = 32517
+IDI_SHIELD      = 32518
 
 LPMSG = ctypes.POINTER(wintypes.MSG)
 
@@ -243,6 +253,10 @@ def _err(result, func, arguments):
 
 LPWNDCLASSEX = ctypes.POINTER(WNDCLASSEX)
 
+CreateIconFromResource = windll.user32.CreateIconFromResource
+CreateIconFromResourceEx = windll.user32.CreateIconFromResourceEx
+LR_DEFAULTCOLOR = 0
+LR_DEFAULTSIZE  = 0x00000040
 
 CreatePopupMenu = windll.user32.CreatePopupMenu
 CreatePopupMenu.argtypes = ()
@@ -308,6 +322,8 @@ InsertMenuItem.argtypes = (
     wintypes.HMENU, wintypes.UINT, wintypes.BOOL, LPMENUITEMINFO)
 InsertMenuItem.restype = wintypes.BOOL
 InsertMenuItem.errcheck = _err
+
+LoadIcon = windll.user32.LoadIconW
 
 LoadImage = windll.user32.LoadImageW
 LoadImage.argtypes = (

@@ -46,8 +46,9 @@ class SystrayIcon():
         self.show()
         Gtk.main()
 
-    def quit(self):
-        del self.status_icon
+    def quit(self, *args, **kwargs):
+        print('quit')
+        self.status_icon.set_visible(False)
         Gtk.main_quit()
 
     def on_click(self, status_icon=None, event_button=None, *args):
@@ -74,7 +75,9 @@ class SystrayIcon():
             return
 
         self.status_icon.set_tooltip_text(self.tooltip)
-        # We use the tooltip also as title at the same time
+
+        # We use the tooltip also as title at the same time.
+        # The title may be used by screen readers.
         self.status_icon.set_title(self.title)
 
     def set_menu(self, menu):
