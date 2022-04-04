@@ -3,16 +3,12 @@ import pathlib, sys, time, threading
 # Make the example find UltraSystray relative to itself
 sys.path.append(str(pathlib.Path(__file__).parent.parent))
 
-# Use default implementation for platform
-#from UltraSystray import SystrayIcon
-
-# Choose specific implementation
-from UltraSystray.appindicator import SystrayIcon
+from UltraSystray import SystrayIcon, DefaultIcons
 
 icons = pathlib.Path(__file__).parent.parent / 'icons'
 assert icons.exists()
 
-icon_file = icons / 'arrow.png'
+icon_file = icons / 'arrow.ico'
 assert icon_file.exists()
 
 def do_something(menu_item):
@@ -27,8 +23,10 @@ def update_menu():
 def run_thread():
     # In order for the icon to be displayed, you must provide an icon
     tray = SystrayIcon(icon=icon_file, tooltip='Systray demo')
-    tray.menu_items=[
-        { 'label': 'Choice', 'variant': 'radio', 'callback': do_something },
+    tray.menu_items = [
+        { 'label': 'Choice 1', 'variant': 'radio', 'callback': do_something },
+        { 'label': 'Choice 2', 'variant': 'radio', 'callback': do_something },
+        { 'label': 'Choice 3', 'variant': 'radio', 'callback': do_something },
         { 'variant': 'separator' },
         { 'label': 'Another entry', 'callback': do_something },
         { 'label': 'Do something', 'callback': do_something },
